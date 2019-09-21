@@ -20,16 +20,17 @@ public class SetAmountPostsListener implements ActionListener {
 		
 		try {
 			aPosts = Integer.parseInt(amountPosts.getText());
+			
+			if(aPosts < 101 && aPosts > 0) {
+				FrameConstants.setPostAmountPosts(aPosts);
+				frame.printToConsole("Amount posts has been set to " + aPosts);
+			} else {
+				frame.printToConsole("Amount posts has to be between 1 and 100!");
+			}
 		} catch (Exception e2) {
 			frame.printToConsole("Amount posts has to be a number!");
 		}
 		
-		if(aPosts < 101 && aPosts > 0) {
-			FrameConstants.setPostAmountPosts(aPosts);
-			frame.printToConsole("Amount posts has been set to " + aPosts);
-		} else {
-			frame.printToConsole("Amount posts has to be between 1 and 100!");
-		}
 	}
 
 }

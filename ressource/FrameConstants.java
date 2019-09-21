@@ -7,9 +7,9 @@ public class FrameConstants {
 	public static final String FRAME_TITLE = "RedditRipper Java Edition";
 	
 	// File/Directory related
-	public static String BASE_DIR = FileSystemView.getFileSystemView().getHomeDirectory() + "\\redditripper\\";
+	public static String BASE_DIR = FileSystemView.getFileSystemView().getHomeDirectory() + "/redditripper/";
 	public static String SUBREDDIT_FILE = BASE_DIR + "subreddits.txt";
-	public static String IMAGE_DIR = BASE_DIR + "images\\";
+	public static String IMAGE_DIR = BASE_DIR + "images/";
 	public static String PREFERENCES_FILE = BASE_DIR + "preferences.txt";
 	
 	// Post Ranking 'sort'
