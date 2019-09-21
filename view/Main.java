@@ -47,5 +47,7 @@ public class Main {
 		mainFrame.setMinimumSize(new Dimension(400, 400));
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
+		
+		mainFrame.getTextArea().requestFocusInWindow();
 	}
 }

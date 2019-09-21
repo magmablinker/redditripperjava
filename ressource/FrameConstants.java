@@ -3,7 +3,8 @@ package ressource;
 import javax.swing.filechooser.FileSystemView;
 
 public class FrameConstants {
-	public static String FRAME_TITLE = "RedditRipper Java Edition";
+	// Frame title
+	public static final String FRAME_TITLE = "RedditRipper Java Edition";
 	
 	// File/Directory related
 	public static String BASE_DIR = FileSystemView.getFileSystemView().getHomeDirectory() + "\\redditripper\\";
@@ -14,6 +15,7 @@ public class FrameConstants {
 	// Post Ranking 'sort'
 	public static String POST_RANKING_TYPE = "hot";
 	public static String[] POST_RANKING_TYPE_ARRAY = {"hot", "top", "new", "rising", "controversial"};
+	public static int POST_AMOUNT_POSTS = 100;
 	
 	// Buttons
 	public static String BUTTON_START_TEXT = "Start";
@@ -23,7 +25,8 @@ public class FrameConstants {
 	public static String BUTTON_CLEAR_TEXT = "Clear";
 	
 	// Labels
-	public static String LABEL_RANKING_TEXT = "Post ranking type";
+	public static final String LABEL_RANKING_TEXT = "Post ranking type";
+	public static final String LABEL_AMOUNT_POSTS_TEXT = "Amount posts";
 	
 	public static void setImageDir(String imageDir) {
 		FrameConstants.IMAGE_DIR = imageDir;
@@ -31,5 +34,9 @@ public class FrameConstants {
 	
 	public static void setPostRankingType(String type) {
 		FrameConstants.POST_RANKING_TYPE = type;
+	}
+	
+	public static void setPostAmountPosts(int amount) {
+		FrameConstants.POST_AMOUNT_POSTS = amount;
 	}
 }

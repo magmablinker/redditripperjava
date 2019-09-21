@@ -43,6 +43,8 @@ public class PreferenceStore implements IDataStore {
 				case "postRankingType":
 					FrameConstants.setPostRankingType(fuck[1]);
 					break;
+				case "amountPosts":
+					FrameConstants.setPostAmountPosts(Integer.parseInt(fuck[1]));
 				default:
 					break;
 				}
@@ -81,6 +83,8 @@ public class PreferenceStore implements IDataStore {
 			writer.newLine();
 			writer.write("postRankingType;" + FrameConstants.POST_RANKING_TYPE);
 			writer.newLine();
+			writer.write("amountPosts;" + FrameConstants.POST_AMOUNT_POSTS);
+			writer.newLine();
 			writer.close();
 		} catch (Exception e) {
 
@@ -98,6 +102,8 @@ public class PreferenceStore implements IDataStore {
 			writer.write("destDir;" + dir);
 			writer.newLine();
 			writer.write("postRankingType;" + FrameConstants.POST_RANKING_TYPE);
+			writer.newLine();
+			writer.write("amountPosts;" + FrameConstants.POST_AMOUNT_POSTS);
 			writer.newLine();
 			writer.close();
 		} catch (Exception e) {

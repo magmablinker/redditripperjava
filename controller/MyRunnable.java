@@ -39,9 +39,9 @@ public class MyRunnable implements Runnable {
 				try {
 					frame.clearConsole();
 					frame.printToConsole("******************************************");
-					frame.printToConsole("Getting " + FrameConstants.POST_RANKING_TYPE + " posts for " + data);
+					frame.printToConsole("Getting " + FrameConstants.POST_RANKING_TYPE + " " + FrameConstants.POST_AMOUNT_POSTS + " posts for " + data);
 					frame.printToConsole("******************************************");
-					parser = new JSONParser(HttpRequest.getResponseData(String.format("https://api.reddit.com/r/%s/%s?limit=100", data, FrameConstants.POST_RANKING_TYPE)));
+					parser = new JSONParser(HttpRequest.getResponseData(String.format("https://api.reddit.com/r/%s/%s?limit=%d", data, FrameConstants.POST_RANKING_TYPE, FrameConstants.POST_AMOUNT_POSTS)));
 					parser.parseJSON();
 					dl = new ImageDownloader(parser.getUrls(), data, frame);
 					if(dl.makeSubredditDir()) {

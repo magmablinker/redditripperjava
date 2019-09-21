@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import controller.AddListener;
 import controller.CancelListener;
@@ -25,6 +26,7 @@ import controller.ClearListener;
 import controller.ComboBoxListener;
 import controller.ListLoaderLeft;
 import controller.RemoveListener;
+import controller.SetAmountPostsListener;
 import controller.StartListener;
 import model.PreferenceStore;
 import ressource.FrameConstants;
@@ -40,6 +42,7 @@ public class MainFrame extends JFrame {
 	private Thread thread;
 	private JLabel labelImageDir;
 	private JComboBox<String> comboBox;
+	private JTextField amountPosts;
 	private boolean threadStarted = false;
 
 	public MainFrame() {
@@ -108,14 +111,19 @@ public class MainFrame extends JFrame {
 		setLabelImageDirText();
 		this.labelImageDir.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
 		
-		JPanel splitPanel = new JPanel(new GridLayout(1, 3, 5, 5));
+		JPanel splitPanel = new JPanel(new GridLayout(1, 4, 5, 5));
 		JComboBox<String> rankingType = new JComboBox<String>(FrameConstants.POST_RANKING_TYPE_ARRAY);
 		rankingType.setSelectedItem(FrameConstants.POST_RANKING_TYPE);
 		rankingType.addActionListener(new ComboBoxListener());
-		
 		setComboBox(rankingType);
 		
-		splitPanel.add(new JPanel());
+		JTextField amountPosts = new JTextField();
+		amountPosts.setText(Integer.toString(FrameConstants.POST_AMOUNT_POSTS));
+		amountPosts.addActionListener(new SetAmountPostsListener());
+		setAmountPosts(amountPosts);
+		
+		splitPanel.add(new JLabel(FrameConstants.LABEL_AMOUNT_POSTS_TEXT));
+		splitPanel.add(amountPosts);
 		splitPanel.add(new JLabel(FrameConstants.LABEL_RANKING_TEXT));
 		splitPanel.add(rankingType);
 		
@@ -182,6 +190,10 @@ public class MainFrame extends JFrame {
 		this.mJListSubReddits = mJListSubReddits;
 	}
 
+	public JTextArea getTextArea() {
+		return this.textArea;
+	}
+	
 	public void setTextArea(JTextArea textArea) {
 		this.textArea = textArea;
 	}
@@ -220,6 +232,14 @@ public class MainFrame extends JFrame {
 
 	public void setComboBox(JComboBox<String> comboBox) {
 		this.comboBox = comboBox;
+	}
+
+	public JTextField getAmountPosts() {
+		return amountPosts;
+	}
+
+	public void setAmountPosts(JTextField amountPosts) {
+		this.amountPosts = amountPosts;
 	}
 
 }
