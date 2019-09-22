@@ -30,8 +30,8 @@ public class MyRunnable implements Runnable {
 		int skipped = 0;
 		int failed = 0;
 		ImageDownloader dl = null;
-		
-		while(!exit) {
+
+		while (!exit) {
 			startTime = System.nanoTime();
 			for (i = 0; i < subreddits.getModel().getSize(); i++) {
 				String data = subreddits.getModel().getElementAt(i);
@@ -39,13 +39,16 @@ public class MyRunnable implements Runnable {
 				try {
 					frame.clearConsole();
 					frame.printToConsole("******************************************");
-					frame.printToConsole("Getting " + FrameConstants.POST_RANKING_TYPE + " " + FrameConstants.POST_AMOUNT_POSTS + " posts for " + data);
+					frame.printToConsole("Getting " + FrameConstants.POST_RANKING_TYPE + " "
+							+ FrameConstants.POST_AMOUNT_POSTS + " posts for " + data);
 					frame.printToConsole("******************************************");
-					parser = new JSONParser(HttpRequest.getResponseData(String.format("https://api.reddit.com/r/%s/%s?limit=%d", data, FrameConstants.POST_RANKING_TYPE, FrameConstants.POST_AMOUNT_POSTS)));
+					parser = new JSONParser(
+							HttpRequest.getResponseData(String.format("https://api.reddit.com/r/%s/%s?limit=%d", data,
+									FrameConstants.POST_RANKING_TYPE, FrameConstants.POST_AMOUNT_POSTS)));
 					parser.parseJSON();
 					dl = new ImageDownloader(parser.getUrls(), data, frame);
-					if(dl.makeSubredditDir()) {
-						dl.getImages();	
+					if (dl.makeSubredditDir()) {
+						dl.getImages();
 					}
 				} catch (Exception e1) {
 					frame.printToConsole("Error: " + e1.getMessage());
@@ -56,11 +59,11 @@ public class MyRunnable implements Runnable {
 			}
 			exit = true;
 		}
-			
+
 		long endTime = System.nanoTime();
-		
+
 		long duration = ((endTime - startTime) / 1000000) / 1000;
-		
+
 		frame.clearConsole();
 		frame.printToConsole("+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+");
 		frame.printToConsole("|                 END STATS               |");

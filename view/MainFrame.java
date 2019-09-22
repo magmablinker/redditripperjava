@@ -19,6 +19,9 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 import controller.AddListener;
 import controller.CancelListener;
@@ -138,6 +141,13 @@ public class MainFrame extends JFrame {
 		DefaultListModel<String> listModelLeft = new DefaultListModel<String>();
 		JList<String> leftList = new JList<String>(listModelLeft);
 		
+		TitledBorder border = new TitledBorder(FrameConstants.LEFT_LIST_TITLE);
+	    border.setTitleJustification(TitledBorder.LEFT);
+	    border.setTitlePosition(TitledBorder.TOP);
+	    border.setTitleFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+	    border.setBorder(new CompoundBorder(border.getBorder(), new EmptyBorder(10, 10, 10, 10)));
+	    leftPanel.setBorder(border);
+		
 		leftList.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
 
 		JScrollPane scroll = new JScrollPane(leftList);
@@ -223,7 +233,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	public void setLabelImageDirText() {
-		this.labelImageDir.setText("Image output dir: " + FrameConstants.IMAGE_DIR);
+		this.labelImageDir.setText(FrameConstants.LABEL_DIRECTORY_TEXT + FrameConstants.IMAGE_DIR);
 	}
 
 	public JComboBox<String> getComboBox() {

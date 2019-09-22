@@ -3,8 +3,9 @@ package ressource;
 import javax.swing.filechooser.FileSystemView;
 
 public class FrameConstants {
-	// Frame title
+	// Titles
 	public static final String FRAME_TITLE = "RedditRipper Java Edition";
+	public static final String LEFT_LIST_TITLE = "Subreddit List";
 	
 	// File/Directory related
 	public static String BASE_DIR = FileSystemView.getFileSystemView().getHomeDirectory() + "/redditripper/";
@@ -25,8 +26,15 @@ public class FrameConstants {
 	public static String BUTTON_CLEAR_TEXT = "Clear";
 	
 	// Labels
+	public static final String LABEL_DIRECTORY_TEXT = "Image output directory: ";
 	public static final String LABEL_RANKING_TEXT = "Post ranking type";
 	public static final String LABEL_AMOUNT_POSTS_TEXT = "Amount posts";
+	
+	// Preferences
+	public static final String PREFERENCES_DELIMITER = ";";
+	public static final String PREFERENCES_AMOUNT_POSTS = "amountPosts";
+	public static final String PREFERENCES_POST_RANKING_TYPE = "postRankingType";
+	public static final String PREFERENCES_DEST_DIR = "destDir";
 	
 	public static void setImageDir(String imageDir) {
 		FrameConstants.IMAGE_DIR = imageDir;

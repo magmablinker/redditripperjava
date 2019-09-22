@@ -62,7 +62,7 @@ public class ImageDownloader {
 					fileFull = fileFull.substring(0, fileFull.indexOf("?") - 1);
 				}
 			
-				File newImage = new File(FrameConstants.IMAGE_DIR + this.subreddit + "\\" + fileFull);
+				File newImage = new File(FrameConstants.IMAGE_DIR + this.subreddit + "/" + fileFull);
 				String fileExtension = fileFull.substring(fileFull.lastIndexOf(".") + 1);
 				
 				if(!newImage.isFile() && (fileExtension.contains("jpg") 
