@@ -77,7 +77,8 @@ public class MainFrame extends JFrame {
 	private Component createContentMiddle() {
 		JPanel centerPanel = new JPanel(new BorderLayout(5, 5));
 		JPanel centerInnerPanel = new JPanel(new BorderLayout(5, 5));
-		JPanel bottomPanel = new JPanel(new GridLayout(1, 3, 5, 5));
+		JPanel bottomPanel = new JPanel(new BorderLayout(5,5));
+		JPanel bottomPanelInner = new JPanel(new GridLayout(1, 2, 5, 5));
 		
         textArea.setBackground(Color.BLACK);
         textArea.setForeground(Color.LIGHT_GRAY);
@@ -113,9 +114,11 @@ public class MainFrame extends JFrame {
 		centerInnerPanel.add(scroll, BorderLayout.CENTER);
 		centerInnerPanel.add(progressPanel, BorderLayout.SOUTH);
 		
-		bottomPanel.add(bClear);
-		bottomPanel.add(bCancel);
-		bottomPanel.add(bStart);
+		bottomPanelInner.add(bCancel);
+		bottomPanelInner.add(bClear);
+		
+		bottomPanel.add(bStart, BorderLayout.CENTER);
+		bottomPanel.add(bottomPanelInner, BorderLayout.SOUTH);
 
 		centerPanel.add(centerInnerPanel, BorderLayout.CENTER);
 		centerPanel.add(bottomPanel, BorderLayout.SOUTH);
