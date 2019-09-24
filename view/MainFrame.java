@@ -20,9 +20,6 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 
 import controller.AddListener;
 import controller.CancelListener;
@@ -161,13 +158,6 @@ public class MainFrame extends JFrame {
 		JPanel leftPanel = new JPanel(new BorderLayout(5,5));
 		DefaultListModel<String> listModelLeft = new DefaultListModel<String>();
 		JList<String> leftList = new JList<String>(listModelLeft);
-		
-		TitledBorder border = new TitledBorder(FrameConstants.LEFT_LIST_TITLE);
-	    border.setTitleJustification(TitledBorder.LEFT);
-	    border.setTitlePosition(TitledBorder.TOP);
-	    border.setTitleFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
-	    border.setBorder(new CompoundBorder(border.getBorder(), new EmptyBorder(10, 10, 10, 10)));
-	    leftPanel.setBorder(border);
 		
 		leftList.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
 
