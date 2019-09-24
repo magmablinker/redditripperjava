@@ -82,6 +82,8 @@ public class MyRunnable implements Runnable {
 		frame.printToConsole("[-] Files failed: " + failed);
 		frame.printToConsole("[+] Files skipped: " + skipped);
 		frame.printToConsole("*******************************************");
+		progress.setValue(0);
+		progress.setString("Done");
 		frame.setThreadStarted(false);
 	}
 
