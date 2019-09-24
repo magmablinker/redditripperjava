@@ -114,8 +114,8 @@ public class MainFrame extends JFrame {
 		centerInnerPanel.add(scroll, BorderLayout.CENTER);
 		centerInnerPanel.add(progressPanel, BorderLayout.SOUTH);
 		
-		bottomPanelInner.add(bCancel);
 		bottomPanelInner.add(bClear);
+		bottomPanelInner.add(bCancel);
 		
 		bottomPanel.add(bStart, BorderLayout.CENTER);
 		bottomPanel.add(bottomPanelInner, BorderLayout.SOUTH);
