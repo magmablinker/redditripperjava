@@ -29,6 +29,7 @@ public class FrameConstants {
 	public static final String LABEL_DIRECTORY_TEXT = "Image output directory: ";
 	public static final String LABEL_RANKING_TEXT = "Post ranking type";
 	public static final String LABEL_AMOUNT_POSTS_TEXT = "Amount posts";
+	public static final String LABEL_DOWNLOAD_STATUS = "Download Status:";
 	
 	// Preferences
 	public static final String PREFERENCES_DELIMITER = ";";

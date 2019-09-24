@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -46,6 +47,7 @@ public class MainFrame extends JFrame {
 	private JLabel labelImageDir;
 	private JComboBox<String> comboBox;
 	private JTextField amountPosts;
+	private JProgressBar progressBar;
 	private boolean threadStarted = false;
 
 	public MainFrame() {
@@ -74,6 +76,7 @@ public class MainFrame extends JFrame {
 	
 	private Component createContentMiddle() {
 		JPanel centerPanel = new JPanel(new BorderLayout(5, 5));
+		JPanel centerInnerPanel = new JPanel(new BorderLayout(5, 5));
 		JPanel bottomPanel = new JPanel(new GridLayout(1, 3, 5, 5));
 		
         textArea.setBackground(Color.BLACK);
@@ -95,11 +98,26 @@ public class MainFrame extends JFrame {
 		JButton bClear = new JButton(FrameConstants.BUTTON_CLEAR_TEXT);
 		bClear.addActionListener(new ClearListener());
 		
+		JPanel progressPanel = new JPanel(new BorderLayout(5, 5));
+		
+		JProgressBar progress = new JProgressBar();
+		progress.setStringPainted(true);
+		progress.setString("Waiting");
+		setProgressBar(progress);
+		
+		JLabel labelDownloadStatus = new JLabel(FrameConstants.LABEL_DOWNLOAD_STATUS);
+		
+		progressPanel.add(labelDownloadStatus, BorderLayout.WEST);
+		progressPanel.add(progress, BorderLayout.CENTER);
+		
+		centerInnerPanel.add(scroll, BorderLayout.CENTER);
+		centerInnerPanel.add(progressPanel, BorderLayout.SOUTH);
+		
 		bottomPanel.add(bClear);
 		bottomPanel.add(bCancel);
 		bottomPanel.add(bStart);
 
-		centerPanel.add(scroll, BorderLayout.CENTER);
+		centerPanel.add(centerInnerPanel, BorderLayout.CENTER);
 		centerPanel.add(bottomPanel, BorderLayout.SOUTH);
 		centerPanel.add(createContentTop(), BorderLayout.NORTH);
 		centerPanel.add(createConentLeft(), BorderLayout.WEST);
@@ -250,6 +268,14 @@ public class MainFrame extends JFrame {
 
 	public void setAmountPosts(JTextField amountPosts) {
 		this.amountPosts = amountPosts;
+	}
+
+	public JProgressBar getProgressBar() {
+		return progressBar;
+	}
+
+	public void setProgressBar(JProgressBar progress) {
+		this.progressBar = progress;
 	}
 
 }

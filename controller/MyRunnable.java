@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JList;
+import javax.swing.JProgressBar;
 
 import ressource.FrameConstants;
 import util.HttpRequest;
@@ -30,6 +31,7 @@ public class MyRunnable implements Runnable {
 		int skipped = 0;
 		int failed = 0;
 		ImageDownloader dl = null;
+		JProgressBar progress = frame.getProgressBar();
 
 		while (!exit) {
 			startTime = System.nanoTime();
@@ -42,10 +44,14 @@ public class MyRunnable implements Runnable {
 					frame.printToConsole("Getting " + FrameConstants.POST_RANKING_TYPE + " "
 							+ FrameConstants.POST_AMOUNT_POSTS + " posts for " + data);
 					frame.printToConsole("******************************************");
+					
+					progress.setString("Getting data for " + data);
+					
 					parser = new JSONParser(
 							HttpRequest.getResponseData(String.format("https://api.reddit.com/r/%s/%s?limit=%d", data,
 									FrameConstants.POST_RANKING_TYPE, FrameConstants.POST_AMOUNT_POSTS)));
 					parser.parseJSON();
+					
 					dl = new ImageDownloader(parser.getUrls(), data, frame);
 					if (dl.makeSubredditDir()) {
 						dl.getImages();
@@ -56,6 +62,8 @@ public class MyRunnable implements Runnable {
 				failed += dl.getFailed();
 				skipped += dl.getSkipped();
 				total += dl.getTotal();
+
+				progress.setValue(0);
 			}
 			exit = true;
 		}

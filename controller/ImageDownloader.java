@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import javax.swing.JProgressBar;
+
 import ressource.FrameConstants;
 import util.HttpRequest;
 import view.MainFrame;
@@ -54,6 +56,9 @@ public class ImageDownloader {
 	}
 
 	private void iDownload() throws IOException {
+		JProgressBar progress = frame.getProgressBar();
+		progress.setMinimum(0);
+		progress.setMaximum((int)urls.size());
 		for (String url : this.urls) {
 			try {				
 				String fileFull = url.substring(url.lastIndexOf("/") + 1);
@@ -93,6 +98,9 @@ public class ImageDownloader {
 				frame.printToConsole("[-] " + e.getMessage());
 				failed++;
 			}
+			
+			progress.setValue(total);
+			progress.setString((int) ((progress.getPercentComplete() * 100) + 1) + "%");
 			total++;
 		}
 	}
