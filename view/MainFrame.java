@@ -134,7 +134,10 @@ public class MainFrame extends JFrame {
 		setLabelImageDirText();
 		this.labelImageDir.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
 
-		JPanel splitPanel = new JPanel(new GridLayout(1, 4, 5, 5));
+		JPanel splitPanel = new JPanel(new GridLayout(1, 2, 5, 5));
+		JPanel splitPanelInnerLeft = new JPanel(new BorderLayout(5,5));
+		JPanel splitPanelInnerRight = new JPanel(new BorderLayout(5,5));
+		
 		JComboBox<String> rankingType = new JComboBox<String>(FrameConstants.POST_RANKING_TYPE_ARRAY);
 		rankingType.setSelectedItem(FrameConstants.POST_RANKING_TYPE);
 		rankingType.addActionListener(new ComboBoxListener());
@@ -145,11 +148,15 @@ public class MainFrame extends JFrame {
 		amountPosts.addActionListener(new SetAmountPostsListener());
 		setAmountPosts(amountPosts);
 
-		splitPanel.add(new JLabel(FrameConstants.LABEL_AMOUNT_POSTS_TEXT));
-		splitPanel.add(amountPosts);
-		splitPanel.add(new JLabel(FrameConstants.LABEL_RANKING_TEXT));
-		splitPanel.add(rankingType);
+		splitPanelInnerLeft.add(new JLabel(FrameConstants.LABEL_AMOUNT_POSTS_TEXT), BorderLayout.WEST);
+		splitPanelInnerLeft.add(amountPosts, BorderLayout.CENTER);
+		
+		splitPanelInnerRight.add(new JLabel(FrameConstants.LABEL_RANKING_TEXT), BorderLayout.WEST);
+		splitPanelInnerRight.add(rankingType, BorderLayout.CENTER);
 
+		splitPanel.add(splitPanelInnerLeft);
+		splitPanel.add(splitPanelInnerRight);
+		
 		topPanel.add(this.labelImageDir);
 		topPanel.add(splitPanel);
 
