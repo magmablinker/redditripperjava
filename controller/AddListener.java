@@ -9,6 +9,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
+import ressource.FrameConstants;
 import util.HttpRequest;
 import util.ReferenceFinder;
 import view.MainFrame;
@@ -22,7 +23,7 @@ public class AddListener implements ActionListener {
 		
 		DefaultListModel<String> model = (DefaultListModel<String>) subreddits.getModel();
 		
-		String input = JOptionPane.showInputDialog("Add subreddit");
+		String input = JOptionPane.showInputDialog(FrameConstants.OPTION_DIALOG_TEXT_ADDSUBREDDIT);
 
 		if(input != null) {
 			if(input.replace(" ", "").length() > 1) {

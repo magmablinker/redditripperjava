@@ -24,6 +24,7 @@ public class FrameConstants {
 	public static String BUTTON_ADD_TEXT = "Add";
 	public static String BUTTON_REMOVE_TEXT = "Remove";
 	public static String BUTTON_CLEAR_TEXT = "Clear";
+	public static String BUTTON_EDIT_TEXT = "Edit";
 
 	// Labels
 	public static final String LABEL_DIRECTORY_TEXT = "Image output directory: ";
@@ -37,6 +38,10 @@ public class FrameConstants {
 	public static final String PREFERENCES_POST_RANKING_TYPE = "postRankingType";
 	public static final String PREFERENCES_DEST_DIR = "destDir";
 
+	// JOptionPane Input Text
+	public static final String OPTION_DIALOG_TEXT_ADDSUBREDDIT = "Add subreddit";
+	public static final String OPTION_DIALOG_TEXT_EDIT = "Edit entry";
+	
 	public static void setImageDir(String imageDir) {
 		FrameConstants.IMAGE_DIR = imageDir;
 	}

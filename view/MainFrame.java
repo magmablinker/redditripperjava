@@ -25,6 +25,7 @@ import controller.AddListener;
 import controller.CancelListener;
 import controller.ClearListener;
 import controller.ComboBoxListener;
+import controller.EditListener;
 import controller.ListLoaderLeft;
 import controller.RemoveListener;
 import controller.SetAmountPostsListener;
@@ -176,13 +177,20 @@ public class MainFrame extends JFrame {
 		JButton bAdd = new JButton(FrameConstants.BUTTON_ADD_TEXT);
 		bAdd.addActionListener(new AddListener());
 
+		JButton bEdit = new JButton(FrameConstants.BUTTON_EDIT_TEXT);
+		bEdit.addActionListener(new EditListener());
+		
 		JButton bRemove = new JButton(FrameConstants.BUTTON_REMOVE_TEXT);
 		bRemove.addActionListener(new RemoveListener());
 
-		JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 5, 5));
+		JPanel buttonPanel = new JPanel(new BorderLayout(5,5));
+		JPanel buttonPanelInner = new JPanel(new GridLayout(1, 2, 5, 5));
 
-		buttonPanel.add(bAdd);
-		buttonPanel.add(bRemove);
+		buttonPanelInner.add(bEdit);
+		buttonPanelInner.add(bRemove);
+		
+		buttonPanel.add(buttonPanelInner, BorderLayout.CENTER);
+		buttonPanel.add(bAdd, BorderLayout.NORTH);
 
 		setmJListSubReddits(leftList);
 
