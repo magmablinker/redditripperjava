@@ -34,7 +34,7 @@ public class StartListener implements ActionListener {
 				
 			}	
 		} else {
-			frame.printToConsole("[!] Please add subreddits to the list so start.");
+			frame.printToConsole("[!] Please add subreddits to the list to start.");
 		}
 
 	}
