@@ -101,7 +101,8 @@ public class MainFrame extends JFrame {
 
 		JProgressBar progress = new JProgressBar();
 		progress.setStringPainted(true);
-		progress.setForeground(Color.GREEN);
+		// ToDo: Change text color JProgressBar
+		//progress.setForeground(Color.GREEN);
 		progress.setString("Waiting");
 		setProgressBar(progress);
 
