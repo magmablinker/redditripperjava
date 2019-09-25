@@ -8,6 +8,7 @@ import controller.ChangeDataSaveListener;
 import controller.ExitListener;
 import controller.RemoveSubredditsListener;
 import controller.OpenDirectoryListener;
+import controller.RemoveDirectoryListener;
 
 
 public class MyMenuBar extends JMenuBar {
@@ -24,6 +25,9 @@ public class MyMenuBar extends JMenuBar {
 		final JMenuItem itemOpenDir = new JMenuItem("Open image directory");
 		itemOpenDir.addActionListener(new OpenDirectoryListener());
 		
+		final JMenuItem itemDeleteDirs = new JMenuItem("Remove Subreddit dirs");
+		itemDeleteDirs.addActionListener(new RemoveDirectoryListener());
+		
 		final JMenuItem itemExit = new JMenuItem("Exit");
 		itemExit.addActionListener(new ExitListener());
 		
@@ -36,6 +40,7 @@ public class MyMenuBar extends JMenuBar {
 		itemChangeDataSave.addActionListener(new ChangeDataSaveListener());
 		
 		menuTools.add(itemOpenDir);
+		menuTools.add(itemDeleteDirs);
 		menuTools.add(itemExit);
 		
 		menuSettings.add(itemRemoveSubreddits);

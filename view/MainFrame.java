@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JList<String> mJListSubReddits;
-	private JTextArea textArea = new JTextArea(24, 50);
+	private JTextArea textArea = new JTextArea();
 	private JScrollPane scroll;
 	private MyMenuBar myMenuBar;
 	private Thread thread;
@@ -82,6 +82,7 @@ public class MainFrame extends JFrame {
         textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
         textArea.setMargin(new Insets(2, 2, 2, 2));
         textArea.setEditable(false);
+        textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
 
         this.scroll = new JScrollPane (textArea);
@@ -100,6 +101,7 @@ public class MainFrame extends JFrame {
 
 		JProgressBar progress = new JProgressBar();
 		progress.setStringPainted(true);
+		progress.setForeground(Color.GREEN);
 		progress.setString("Waiting");
 		setProgressBar(progress);
 

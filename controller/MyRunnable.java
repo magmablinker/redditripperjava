@@ -55,6 +55,8 @@ public class MyRunnable implements Runnable {
 					dl = new ImageDownloader(parser.getUrls(), data, frame);
 					if (dl.makeSubredditDir()) {
 						dl.getImages();
+					} else {
+						frame.printToConsole("[!] Creating the subreddit directory has failed!");
 					}
 				} catch (Exception e1) {
 					frame.printToConsole("Error: " + e1.getMessage());
