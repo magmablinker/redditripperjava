@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import javax.swing.JProgressBar;
+
 import ressource.FrameConstants;
 import util.HttpRequest;
 import view.MainFrame;
@@ -20,19 +22,19 @@ public class ImageDownloader {
 	private int skipped = 0;
 	private int failed = 0;
 	private int total = 0;
-	
+
 	public ImageDownloader(ArrayList<String> urls, String subreddit, MainFrame frame) {
 		this.urls = urls;
 		this.subreddit = subreddit;
-		
+
 		checkDirExists();
-		
+
 		this.frame = frame;
 	}
 
 	private void checkDirExists() {
 		File dir = new File(FrameConstants.IMAGE_DIR);
-		
+
 		if(!dir.exists()) {
 			try {
 				dir.mkdirs();
@@ -41,7 +43,7 @@ public class ImageDownloader {
 				System.exit(1);
 			}
 		}
-		
+
 	}
 
 	public void getImages() {
@@ -54,20 +56,23 @@ public class ImageDownloader {
 	}
 
 	private void iDownload() throws IOException {
+		JProgressBar progress = frame.getProgressBar();
+		progress.setMinimum(0);
+		progress.setMaximum((int)urls.size());
 		for (String url : this.urls) {
-			try {				
+			try {
 				String fileFull = url.substring(url.lastIndexOf("/") + 1);
-				
+
 				if(fileFull.contains("?")) {
 					fileFull = fileFull.substring(0, fileFull.indexOf("?") - 1);
 				}
-			
-				File newImage = new File(FrameConstants.IMAGE_DIR + this.subreddit + "\\" + fileFull);
+
+				File newImage = new File(FrameConstants.IMAGE_DIR + this.subreddit + "/" + fileFull);
 				String fileExtension = fileFull.substring(fileFull.lastIndexOf(".") + 1);
-				
-				if(!newImage.isFile() && (fileExtension.contains("jpg") 
+
+				if(!newImage.isFile() && (fileExtension.contains("jpg")
 						|| fileExtension.contains("png"))) {
-					
+
 					frame.printToConsole("[+] Downloading image " + newImage.getName());
 					InputStream in = new BufferedInputStream(HttpRequest.getResponseData(url, true));
 
@@ -80,7 +85,7 @@ public class ImageDownloader {
 					out.close();
 					in.close();
 					byte[] response = out.toByteArray();
-							
+
 					FileOutputStream fos = new FileOutputStream(FrameConstants.IMAGE_DIR + this.subreddit + "\\" + fileFull);
 					fos.write(response);
 					fos.close();
@@ -93,15 +98,18 @@ public class ImageDownloader {
 				frame.printToConsole("[-] " + e.getMessage());
 				failed++;
 			}
+
+			progress.setValue(total);
+			progress.setString((int) ((progress.getPercentComplete() * 100) + 1) + "%");
 			total++;
 		}
 	}
 
 	public boolean makeSubredditDir() {
 		boolean retval = true;
-		
+
 		File subDir = new File(FrameConstants.IMAGE_DIR + this.subreddit);
-		
+
 		if(!subDir.exists()) {
 			frame.printToConsole("Making dir " + FrameConstants.IMAGE_DIR + this.subreddit);
 			try {
@@ -111,7 +119,7 @@ public class ImageDownloader {
 				retval = false;
 			}
 		}
-		
+
 		return retval;
 	}
 
@@ -122,7 +130,7 @@ public class ImageDownloader {
 	public int getFailed() {
 		return failed;
 	}
-	
+
 	public int getTotal() {
 		return total;
 	}

@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JList;
@@ -18,42 +17,44 @@ public class PreferenceStore implements IDataStore {
 
 	@Override
 	public ArrayList<String> load() {
-		File preferences = new File(FrameConstants.PREFERENCES_FILE);
-
-		if (!preferences.exists() || !preferences.isFile()) {
-			createPreferencesFile(preferences);
-		}
-
-		BufferedReader read = null;
-
 		try {
+			File preferences = new File(FrameConstants.PREFERENCES_FILE);
+
+			if (!preferences.exists() || !preferences.isFile()) {
+				createPreferencesFile(preferences);
+			}
+
+			BufferedReader read = null;
+
 			read = new BufferedReader(new FileReader(preferences));
+
+			String line;
+			String[] fuck;
+			try {
+				while ((line = read.readLine()) != null) {
+					fuck = line.split(FrameConstants.PREFERENCES_DELIMITER);
+					switch (fuck[0]) {
+					case FrameConstants.PREFERENCES_DEST_DIR:
+						FrameConstants.setImageDir(fuck[1]);
+						break;
+					case FrameConstants.PREFERENCES_POST_RANKING_TYPE:
+						FrameConstants.setPostRankingType(fuck[1]);
+						break;
+					case FrameConstants.PREFERENCES_AMOUNT_POSTS:
+						FrameConstants.setPostAmountPosts(Integer.parseInt(fuck[1]));
+					default:
+						break;
+					}
+
+				}
+				read.close();
+			} catch (Exception e) {
+
+			}
 		} catch (FileNotFoundException e) {
 
 		}
 
-		String line;
-		String[] fuck;
-		try {
-			while ((line = read.readLine()) != null) {
-				fuck = line.split(";");
-				switch (fuck[0]) {
-				case "destDir":
-					FrameConstants.setImageDir(fuck[1]);
-					break;
-				case "postRankingType":
-					FrameConstants.setPostRankingType(fuck[1]);
-					break;
-				default:
-					break;
-				}
-				
-			}
-			read.close();
-		} catch (IOException e) {
-		
-		}
-		
 		return null;
 	}
 
@@ -62,7 +63,7 @@ public class PreferenceStore implements IDataStore {
 			File basedir = new File(FrameConstants.BASE_DIR);
 			basedir.mkdirs();
 			preferences.createNewFile();
-			
+
 			save(new JList<String>());
 		} catch (Exception e) {
 
@@ -72,33 +73,40 @@ public class PreferenceStore implements IDataStore {
 	@Override
 	public void save(JList<String> data) {
 		File preferences = new File(FrameConstants.PREFERENCES_FILE);
-		
-		
+
 		BufferedWriter writer;
-		
+
 		try {
 			writer = new BufferedWriter(new FileWriter(preferences));
-			writer.write(FileSystemView.getFileSystemView().getHomeDirectory() + "\\redditripper\\images\\");
+			writer.write(FrameConstants.PREFERENCES_DEST_DIR + FrameConstants.PREFERENCES_DELIMITER
+					+ FileSystemView.getFileSystemView().getHomeDirectory() + "/redditripper/images/");
 			writer.newLine();
-			writer.write("postRankingType;" + FrameConstants.POST_RANKING_TYPE);
+			writer.write(FrameConstants.PREFERENCES_POST_RANKING_TYPE + FrameConstants.PREFERENCES_DELIMITER
+					+ FrameConstants.POST_RANKING_TYPE);
+			writer.newLine();
+			writer.write(FrameConstants.PREFERENCES_AMOUNT_POSTS + FrameConstants.PREFERENCES_DELIMITER
+					+ FrameConstants.POST_AMOUNT_POSTS);
 			writer.newLine();
 			writer.close();
 		} catch (Exception e) {
 
 		}
 	}
-	
+
 	public void save(String dir) {
 		File preferences = new File(FrameConstants.PREFERENCES_FILE);
-		
-		
+
 		BufferedWriter writer;
-		
+
 		try {
 			writer = new BufferedWriter(new FileWriter(preferences));
-			writer.write("destDir;" + dir);
+			writer.write(FrameConstants.PREFERENCES_DEST_DIR + FrameConstants.PREFERENCES_DELIMITER + dir);
 			writer.newLine();
-			writer.write("postRankingType;" + FrameConstants.POST_RANKING_TYPE);
+			writer.write(FrameConstants.PREFERENCES_POST_RANKING_TYPE + FrameConstants.PREFERENCES_DELIMITER
+					+ FrameConstants.POST_RANKING_TYPE);
+			writer.newLine();
+			writer.write(FrameConstants.PREFERENCES_AMOUNT_POSTS + FrameConstants.PREFERENCES_DELIMITER
+					+ FrameConstants.POST_AMOUNT_POSTS);
 			writer.newLine();
 			writer.close();
 		} catch (Exception e) {

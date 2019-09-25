@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JList;
+import javax.swing.JProgressBar;
 
 import ressource.FrameConstants;
 import util.HttpRequest;
@@ -30,8 +31,9 @@ public class MyRunnable implements Runnable {
 		int skipped = 0;
 		int failed = 0;
 		ImageDownloader dl = null;
-		
-		while(!exit) {
+		JProgressBar progress = frame.getProgressBar();
+
+		while (!exit) {
 			startTime = System.nanoTime();
 			for (i = 0; i < subreddits.getModel().getSize(); i++) {
 				String data = subreddits.getModel().getElementAt(i);
@@ -39,13 +41,20 @@ public class MyRunnable implements Runnable {
 				try {
 					frame.clearConsole();
 					frame.printToConsole("******************************************");
-					frame.printToConsole("Getting " + FrameConstants.POST_RANKING_TYPE + " posts for " + data);
+					frame.printToConsole("Getting " + FrameConstants.POST_RANKING_TYPE + " "
+							+ FrameConstants.POST_AMOUNT_POSTS + " posts for " + data);
 					frame.printToConsole("******************************************");
-					parser = new JSONParser(HttpRequest.getResponseData(String.format("https://api.reddit.com/r/%s/%s?limit=100", data, FrameConstants.POST_RANKING_TYPE)));
+
+					progress.setString("Getting data for " + data);
+
+					parser = new JSONParser(
+							HttpRequest.getResponseData(String.format("https://api.reddit.com/r/%s/%s?limit=%d", data,
+									FrameConstants.POST_RANKING_TYPE, FrameConstants.POST_AMOUNT_POSTS)));
 					parser.parseJSON();
+
 					dl = new ImageDownloader(parser.getUrls(), data, frame);
-					if(dl.makeSubredditDir()) {
-						dl.getImages();	
+					if (dl.makeSubredditDir()) {
+						dl.getImages();
 					}
 				} catch (Exception e1) {
 					frame.printToConsole("Error: " + e1.getMessage());
@@ -53,14 +62,16 @@ public class MyRunnable implements Runnable {
 				failed += dl.getFailed();
 				skipped += dl.getSkipped();
 				total += dl.getTotal();
+
+				progress.setValue(0);
 			}
 			exit = true;
 		}
-			
+
 		long endTime = System.nanoTime();
-		
+
 		long duration = ((endTime - startTime) / 1000000) / 1000;
-		
+
 		frame.clearConsole();
 		frame.printToConsole("+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+");
 		frame.printToConsole("|                 END STATS               |");
@@ -71,6 +82,8 @@ public class MyRunnable implements Runnable {
 		frame.printToConsole("[-] Files failed: " + failed);
 		frame.printToConsole("[+] Files skipped: " + skipped);
 		frame.printToConsole("*******************************************");
+		progress.setValue(0);
+		progress.setString("Done");
 		frame.setThreadStarted(false);
 	}
 
