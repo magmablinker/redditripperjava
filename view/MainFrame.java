@@ -6,6 +6,9 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
 import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
@@ -32,6 +35,7 @@ import controller.SetAmountPostsListener;
 import controller.StartListener;
 import model.PreferenceStore;
 import ressource.FrameConstants;
+import util.ReferenceFinder;
 
 public class MainFrame extends JFrame {
 
@@ -47,6 +51,33 @@ public class MainFrame extends JFrame {
 	private JTextField amountPosts;
 	private JProgressBar progressBar;
 	private boolean threadStarted = false;
+	
+    private class MyDispatcher implements KeyEventDispatcher {
+        @Override
+        public boolean dispatchKeyEvent(KeyEvent e) {
+            if (e.getID() == KeyEvent.KEY_PRESSED) {
+                if(e.getKeyCode() == KeyEvent.VK_DELETE) {
+            		MainFrame frame = (MainFrame) ReferenceFinder.findFrame((Component) e.getSource());
+            		
+            		if(frame != null) {
+                		JList<String> listLeft = frame.getmJListSubReddits();
+                		DefaultListModel<String> model = (DefaultListModel<String>) listLeft.getModel();
+                			
+                		int i = listLeft.getSelectedIndex();
+                		
+                		if(i > -1) {
+                			String subreddit = model.getElementAt(i);
+                			model.remove(i);
+                			frame.printToConsole("Subreddit " + subreddit + " has been removed from the download list!");
+                		}
+            		}
+            		
+                }
+            }
+            
+            return false;
+        }
+    }
 
 	public MainFrame() {
 		super(FrameConstants.FRAME_TITLE);
@@ -58,6 +89,8 @@ public class MainFrame extends JFrame {
 		store.load();
 
 		this.add(createContent());
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher(new MyDispatcher());
 	}
 
 	private Component createContent() {

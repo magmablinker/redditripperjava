@@ -22,7 +22,7 @@ public class EditListener implements ActionListener {
 		int selectedIndex = list.getSelectedIndex();
 
 		if (model.getSize() > 0) {
-			if (selectedIndex > 0) {
+			if (selectedIndex > -1) {
 				String input = JOptionPane.showInputDialog(FrameConstants.OPTION_DIALOG_TEXT_EDIT, model.getElementAt(selectedIndex));
 
 				if (input != null) {
