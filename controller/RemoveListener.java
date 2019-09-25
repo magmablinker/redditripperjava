@@ -17,10 +17,10 @@ public class RemoveListener implements ActionListener {
 		MainFrame frame = (MainFrame) ReferenceFinder.findFrame((Component) e.getSource());
 		JList<String> listLeft = frame.getmJListSubReddits();
 		DefaultListModel<String> model = (DefaultListModel<String>) listLeft.getModel();
-			
+
 		int i = listLeft.getSelectedIndex();
-		
-		if(i > -1) {
+
+		if (i > -1) {
 			String subreddit = model.getElementAt(i);
 			model.remove(i);
 			frame.printToConsole("Subreddit " + subreddit + " has been removed from the download list!");

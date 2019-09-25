@@ -35,7 +35,7 @@ public class ImageDownloader {
 	private void checkDirExists() {
 		File dir = new File(FrameConstants.IMAGE_DIR);
 
-		if(!dir.exists()) {
+		if (!dir.exists()) {
 			try {
 				dir.mkdirs();
 			} catch (Exception e) {
@@ -58,20 +58,20 @@ public class ImageDownloader {
 	private void iDownload() throws IOException {
 		JProgressBar progress = frame.getProgressBar();
 		progress.setMinimum(0);
-		progress.setMaximum((int)urls.size());
+		progress.setMaximum((int) urls.size());
 		for (String url : this.urls) {
 			try {
 				String fileFull = url.substring(url.lastIndexOf("/") + 1);
 
-				if(fileFull.contains("?")) {
+				if (fileFull.contains("?")) {
 					fileFull = fileFull.substring(0, fileFull.indexOf("?") - 1);
 				}
 
 				File newImage = new File(FrameConstants.IMAGE_DIR + this.subreddit + "/" + fileFull);
 				String fileExtension = fileFull.substring(fileFull.lastIndexOf(".") + 1);
 
-				if(!newImage.isFile() && (fileExtension.contains("jpg")
-						|| fileExtension.contains("png"))) {
+				if (!newImage.isFile() && (fileExtension.contains("jpg") || fileExtension.contains("png")
+						|| (fileExtension.contains("gif") && !fileExtension.equals("gifv")))) {
 
 					frame.printToConsole("[+] Downloading image " + newImage.getName());
 					InputStream in = new BufferedInputStream(HttpRequest.getResponseData(url, true));
@@ -86,10 +86,12 @@ public class ImageDownloader {
 					in.close();
 					byte[] response = out.toByteArray();
 
-					FileOutputStream fos = new FileOutputStream(FrameConstants.IMAGE_DIR + this.subreddit + "\\" + fileFull);
+					FileOutputStream fos = new FileOutputStream(
+							FrameConstants.IMAGE_DIR + this.subreddit + "\\" + fileFull);
 					fos.write(response);
 					fos.close();
 				} else {
+					System.out.println(newImage.getAbsolutePath());
 					frame.printToConsole("[?] Image " + newImage.getName() + " exists, skipping it.");
 					skipped++;
 				}
@@ -110,7 +112,7 @@ public class ImageDownloader {
 
 		File subDir = new File(FrameConstants.IMAGE_DIR + this.subreddit);
 
-		if(!subDir.exists()) {
+		if (!subDir.exists()) {
 			frame.printToConsole("Making dir " + FrameConstants.IMAGE_DIR + this.subreddit);
 			try {
 				subDir.mkdir();
